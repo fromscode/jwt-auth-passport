@@ -2,7 +2,7 @@
   "name": "express",
   "version": "1.0.0",
   "scripts": {
-    "dev": "tsx --watch app.ts"
+    "dev": "tsx --watch src/app.ts"
   },
   "license": "ISC",
   "type": "module",
