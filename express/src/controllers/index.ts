@@ -5,7 +5,11 @@ function getHome(req: Request, res: Response) {
 }
 
 function getLogin(req: Request, res: Response) {}
-function postLogin(req: Request, res: Response) {}
+function postLogin(req: Request, res: Response) {
+  res.json({
+    message: 'Login data was received'
+  });
+}
 function getRegister(req: Request, res: Response) {}
 function postRegister(req: Request, res: Response) {}
 function getProfile(req: Request, res: Response) {}

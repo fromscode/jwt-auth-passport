@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/", controller.getHome);
 router.get("/login", controller.getLogin);
-router.post("login", controller.postLogin);
+router.post("/login", controller.postLogin);
 
 router.get("/register", controller.getRegister);
 router.post("/register", controller.postRegister);
