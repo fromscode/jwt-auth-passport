@@ -5,12 +5,27 @@ import HomePage from './pages/HomePage.tsx'
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import Error404 from './pages/Error404.tsx';
+import Dashboard from './pages/Dashboard.tsx';
+import Login from './pages/Login.tsx';
+import Register from './pages/Register.tsx';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: HomePage
+  },
+  {
+    path: '/dashboard',
+    Component: Dashboard
+  },
+  {
+    path: '/login',
+    Component: Login
+  },
+  {
+    path: '/register',
+    Component: Register
   },
   {
     path: "/*",
