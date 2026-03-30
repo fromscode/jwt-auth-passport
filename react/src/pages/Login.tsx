@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router";
 
 export default function Login() {
     const [username, setUsername] = useState('');
@@ -37,7 +38,10 @@ export default function Login() {
             <button type='button' onClick={handleLogin}>Submit</button>
         </form>
         <p>
-            {data || (data as any).message}
+            <NavLink to='/' end> Back to Home Page</NavLink>
+        </p>
+        <p>
+            {data && (data as any).message}
         </p>
     </>
 
