@@ -1,10 +1,12 @@
 import {useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 export default function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<string | null>(null);
+
+    const navigate = useNavigate();
 
     async function handleRegister(username: string, password: string) {
         try {
@@ -15,14 +17,24 @@ export default function Register() {
                 },
                 body: JSON.stringify({ username, password })
             })
-            const body = await res.json();
-            setData(body);
+            const resBody = await res.json();
+
+            if (res.status == 201) {
+                localStorage.setItem('token', resBody.token);
+                navigate('/dashboard');
+            }
+            else if (res.status == 400) {
+                setData(resBody.message);
+            }
+            else {
+                setData('Some unexpected error occured');
+            }
+            
         }
         catch (err) { 
-            console.error(err)
+            console.error(err);
+            setData('Some error occured');
         }
-
-        if ((data as any).status != 401) console.log("authorized");
         
     }
     return <>

@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<string | null>(null);
+
+    const navigate = useNavigate();
     
 
-    async function handleLogin() {
+    async function handleLogin(e: React.SubmitEvent) {
+        e.preventDefault();
         try {
             const res = await fetch('http://localhost:3000/login', {
                 method: 'POST',
@@ -16,26 +19,35 @@ export default function Login() {
                 },
                 body: JSON.stringify({ username, password })
             })
-            const body = await res.json();
-            setData(body);
+
+            const resBody = await res.json();
+            if (res.status == 200) {
+                localStorage.setItem('token', resBody.token)
+
+                navigate('/dashboard');
+            }
+            else if (res.status == 401) {
+                setData(resBody.message);
+            }
+            else {
+                setData('Some unexpected error occured')
+            }
         }
         catch (err) { 
-            console.error(err)
+            console.error(err);
+            setData('Some error occurred');
         }
-
-        if ((data as any).status != 401) console.log("authorized");
-        
     }
 
     return <>
-        <form action="/login" method="post">
+        <form action="/login" method="post" onSubmit={handleLogin}>
             <label htmlFor="username">Username: </label>
             <input type="text" id='username' name='username' value={username} onChange={(e) => setUsername(e.target.value)} />
             <br />
             <label htmlFor="password">Password: </label>
             <input type="text" id='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} />
             <br />
-            <button type='button' onClick={handleLogin}>Submit</button>
+            <button type='button'>Submit</button>
         </form>
         <p>
             <NavLink to='/' end> Back to Home Page</NavLink>
