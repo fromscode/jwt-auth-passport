@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard.tsx';
 import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
 import Error500 from './pages/Error500.tsx';
+import Profile from './pages/Profile.tsx';
 
 
 const router = createBrowserRouter([
@@ -20,6 +21,11 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     Component: Dashboard,
+    ErrorBoundary: Error500
+  },
+  {
+    path: '/profile',
+    Component: Profile,
     ErrorBoundary: Error500
   },
   {
