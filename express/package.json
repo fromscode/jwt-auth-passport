@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "tsx --watch --env-file=.env src/app.ts",
-    "generateKeys": "tsx src/auth/generateKeyPairs.ts"
+    "generateKeys": "tsx src/auth/generateKeyPairs.ts",
+    "init:db": "tsx --env-file=.env src/db/init.ts"
   },
   "license": "ISC",
   "type": "module",
@@ -11,8 +12,10 @@
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "mssql": "^12.2.1",
+    "mysql2": "^3.20.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
+    "pg": "^8.20.0",
     "tsc": "^2.0.4",
     "typescript": "^6.0.2"
   },
@@ -22,6 +25,7 @@
     "@types/node": "^25.5.0",
     "@types/passport": "^1.0.17",
     "@types/passport-jwt": "^4.0.1",
+    "@types/pg": "^8.20.0",
     "tsx": "^4.21.0"
   }
 }
