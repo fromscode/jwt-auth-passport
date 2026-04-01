@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import queries from "../db/queries";
+import bcrypt from "bcrypt";
 
 function getHome(req: Request, res: Response) {
   res.send("This is home page");
@@ -13,7 +14,7 @@ async function postLogin(req: Request, res: Response) {
 
   // TODO - implement hashing
 
-  if (!user || user.password != password) {
+  if (!user || !(await bcrypt.compare(password, user.password))) {
     res.status(401).json({
       message: "Invalid credentials",
     });
@@ -32,8 +33,6 @@ async function postRegister(req: Request, res: Response) {
   const { username, password } = req.body;
 
   let user = await queries.getUserByUsername(username);
-  console.log(username);
-  console.log(user);
   if (user) {
     res.status(400).json({
       message: "Failed to create user, username is already taken",
@@ -41,11 +40,11 @@ async function postRegister(req: Request, res: Response) {
     return;
   }
 
-  // TODO- implement hashing
+  const hashedPass = await bcrypt.hash(password, 10);
 
-  const id = await queries.createUser(username, password);
+  const id = await queries.createUser(username, hashedPass);
 
-  // TODO - implement hashing
+  // TODO - Generate token
 
   res.status(201).json({
     message: "User registered successfully",

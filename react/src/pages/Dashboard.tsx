@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
+type User = {
+    id: number,
+    username: string
+}
+
 export default function Dashboard() {
-    const [userData, setUserData] = useState<null | any>(null);
+    const [userData, setUserData] = useState<null | User>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,7 +33,7 @@ export default function Dashboard() {
         }
 
         getUserData();
-    }, []);
+    }, [navigate]);
 
     if (!userData) return <>Loading...</>
 
