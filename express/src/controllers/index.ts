@@ -56,7 +56,12 @@ async function postRegister(req: Request, res: Response) {
   });
 }
 function getProfile(req: Request, res: Response) {}
-function getDashboard(req: Request, res: Response) {}
+async function getDashboard(req: Request, res: Response) {
+  res.json({
+    username: "tbd",
+    password: "tbd",
+  });
+}
 function getLogout(req: Request, res: Response) {}
 
 export default {
