@@ -65,7 +65,11 @@ async function getDashboard(req: Request, res: Response) {
     username: (req as any).user.username,
   });
 }
-function getLogout(req: Request, res: Response) {}
+function getLogout(req: Request, res: Response) {
+  res.json({
+    message: "Logged out successfully",
+  });
+}
 
 export default {
   getHome,

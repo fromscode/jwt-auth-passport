@@ -10,6 +10,7 @@ import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
 import Error500 from './pages/Error500.tsx';
 import Profile from './pages/Profile.tsx';
+import Logout from './pages/Logout.tsx';
 
 
 const router = createBrowserRouter([
@@ -36,6 +37,11 @@ const router = createBrowserRouter([
   {
     path: '/register',
     Component: Register,
+    ErrorBoundary: Error500
+  },
+  {
+    path: '/logout',
+    Component: Logout,
     ErrorBoundary: Error500
   },
   {
