@@ -9,7 +9,18 @@ export default function createToken(user: any) {
     exp: currentTimeinSeconds + 24 * 60 * 60,
   };
 
-  return jwt.sign(payload, process.env.PRIVATE_KEY as string, {
-    algorithm: "RS256",
-  });
+  const privateKey = Buffer.from(
+    process.env.PRIVATE_KEY as string,
+    "base64url",
+  ).toString();
+
+  console.log(privateKey);
+
+  return jwt.sign(
+    payload,
+    { key: privateKey, passphrase: "top secret" },
+    {
+      algorithm: "RS256",
+    },
+  );
 }
