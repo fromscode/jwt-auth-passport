@@ -1,5 +1,6 @@
 import express from "express";
 import controller from "../controllers";
+import passport from "passport";
 
 const router = express.Router();
 
@@ -12,8 +13,20 @@ router.post("/register", controller.postRegister);
 
 router.get("/logout", controller.getLogout);
 
-router.get("/dashboard", controller.getDashboard);
+router.get(
+  "/dashboard",
+  passport.authenticate("jwt", {
+    session: false,
+  }),
+  controller.getDashboard,
+);
 
-router.get("/profile", controller.getProfile);
+router.get(
+  "/profile",
+  passport.authenticate("jwt", {
+    session: false,
+  }),
+  controller.getProfile,
+);
 
 export default router;

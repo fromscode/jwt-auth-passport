@@ -1,11 +1,16 @@
 import express from "express";
 import route from "./routes";
 
-import cors from 'cors'
+import "./config/passport";
+
+import cors from "cors";
+import passport from "passport";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.use(passport.initialize());
 
 const PORT = 3000;
 
