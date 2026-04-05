@@ -26,7 +26,6 @@ export default function Login() {
             })
 
             const resBody = await res.json();
-            console.log(data?.message);
             if (res.status == 200) {
                 localStorage.setItem('token', resBody.token)
 

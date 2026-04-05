@@ -16,14 +16,19 @@ export default function Dashboard() {
                 const response = await fetch('http://localhost:3000/dashboard', {
                     method: 'GET',
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Authorization': `bearer ${localStorage.getItem('token')}`,
                     }
                 })
+
+                console.log();
 
                 if (response.status == 401) navigate('/login');
                 else if (response.status == 200) {
                     const body = await response.json();
                     setUserData(body);
+                }
+                else {
+                    console.log(response);
                 }
             }
             catch (err) {

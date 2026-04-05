@@ -1,14 +1,20 @@
-import {useState } from "react";
+import React, {useState } from "react";
 import { NavLink, useNavigate } from "react-router";
+
+type data = {
+    message: string,
+    token?: string
+}
 
 export default function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [data, setData] = useState<string | null>(null);
+    const [data, setData] = useState<data | null>(null);
 
     const navigate = useNavigate();
 
-    async function handleRegister(username: string, password: string) {
+    async function handleRegister(e: React.SubmitEvent) {
+        e.preventDefault();
         try {
             const res = await fetch('http://localhost:3000/register', {
                 method: 'POST',
@@ -27,18 +33,18 @@ export default function Register() {
                 setData(resBody.message);
             }
             else {
-                setData('Some unexpected error occured');
+                setData({message: 'Some unexpected error occured'});
             }
             
         }
         catch (err) { 
             console.error(err);
-            setData('Some error occured');
+            setData({message: 'Some error occured'});
         }
         
     }
     return <>
-        <form action="/register" method="post">
+        <form action="/register" method="post" onSubmit={handleRegister}>
             <label htmlFor="username">Username: </label>
             <input type="text" id='username' name='username' value={username} onChange={(e) => setUsername(e.target.value)}/>
             <br />
@@ -47,13 +53,13 @@ export default function Register() {
             value={password} onChange={(e) => setPassword(e.target.value)
             }/>
             <br />
-            <button type="button" onClick={() => handleRegister(username, password)}>Submit</button>
+            <button type="submit">Submit</button>
         </form>
         <p>
              <NavLink to='/' end> Back to Home Page</NavLink>
         </p>
         <p>
-            {data && (data as any).message}
+            {data && data.message}
         </p>
     </>
 }
