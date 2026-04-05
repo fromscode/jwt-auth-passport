@@ -54,7 +54,12 @@ async function postRegister(req: Request, res: Response) {
     token: token,
   });
 }
-function getProfile(req: Request, res: Response) {}
+function getProfile(req: Request, res: Response) {
+  res.json({
+    id: (req as any).user.id,
+    username: (req as any).user.username,
+  });
+}
 async function getDashboard(req: Request, res: Response) {
   res.json({
     username: (req as any).user.username,
