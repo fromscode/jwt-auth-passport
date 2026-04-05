@@ -57,8 +57,7 @@ async function postRegister(req: Request, res: Response) {
 function getProfile(req: Request, res: Response) {}
 async function getDashboard(req: Request, res: Response) {
   res.json({
-    username: "tbd",
-    password: "tbd",
+    username: (req as any).user.username,
   });
 }
 function getLogout(req: Request, res: Response) {}

@@ -4,7 +4,10 @@ import queries from "../db/queries";
 
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.PUBLIC_KEY as string,
+  secretOrKey: Buffer.from(
+    process.env.PUBLIC_KEY as string,
+    "base64url",
+  ).toString(),
   algorithms: ["RS256" as const],
 };
 

@@ -14,8 +14,6 @@ export default function createToken(user: any) {
     "base64url",
   ).toString();
 
-  console.log(privateKey);
-
   return jwt.sign(
     payload,
     { key: privateKey, passphrase: "top secret" },
